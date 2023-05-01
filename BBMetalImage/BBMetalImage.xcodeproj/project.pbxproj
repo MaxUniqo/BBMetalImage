@@ -138,7 +138,7 @@
 		4A45DFD024D2578F00DA963E /* BBMetalMultipleImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A45DFCE24D2578B00DA963E /* BBMetalMultipleImageSource.swift */; };
 		4A4CAD92225285E60058BEB6 /* BBMetalImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4CAD88225285E60058BEB6 /* BBMetalImage.framework */; };
 		4A4CAD97225285E60058BEB6 /* BBMetalImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CAD96225285E60058BEB6 /* BBMetalImageTests.swift */; };
-		4A4CAD99225285E60058BEB6 /* BBMetalImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A4CAD8B225285E60058BEB6 /* BBMetalImage.h */; };
+		4A4CAD99225285E60058BEB6 /* BBMetalImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A4CAD8B225285E60058BEB6 /* BBMetalImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A4CADA3225288E60058BEB6 /* BBMetalBaseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CADA2225288E60058BEB6 /* BBMetalBaseFilter.swift */; };
 		4A4CADA4225288E60058BEB6 /* BBMetalBaseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CADA2225288E60058BEB6 /* BBMetalBaseFilter.swift */; };
 		4A4CADA62252CC260058BEB6 /* BBMetalDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CADA52252CC260058BEB6 /* BBMetalDevice.swift */; };
@@ -304,7 +304,7 @@
 		EC26AB8329FF4134008D1558 /* BBMetalTransformFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = EC26AB6B29FF4134008D1558 /* BBMetalTransformFilter.metal */; };
 		EC26AB8429FF4134008D1558 /* BBMetalBilateralBlurFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = EC26AB6C29FF4134008D1558 /* BBMetalBilateralBlurFilter.metal */; };
 		EC26AB8529FF4134008D1558 /* BBMetalAddBlendFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = EC26AB6D29FF4134008D1558 /* BBMetalAddBlendFilter.metal */; };
-		EC26AB9229FF4805008D1558 /* minMaxFromBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = EC26AB9029FF4805008D1558 /* minMaxFromBuffer.h */; };
+		EC26AB9229FF4805008D1558 /* minMaxFromBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = EC26AB9029FF4805008D1558 /* minMaxFromBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC26AB9329FF4805008D1558 /* minMaxFromBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC26AB9129FF4805008D1558 /* minMaxFromBuffer.m */; };
 /* End PBXBuildFile section */
 
@@ -780,8 +780,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4CAD99225285E60058BEB6 /* BBMetalImage.h in Headers */,
-				4A4CADB2225310CB0058BEB6 /* BBMetalShaderTypes.h in Headers */,
 				EC26AB9229FF4805008D1558 /* minMaxFromBuffer.h in Headers */,
+				4A4CADB2225310CB0058BEB6 /* BBMetalShaderTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
