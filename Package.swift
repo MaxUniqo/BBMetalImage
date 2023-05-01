@@ -9,7 +9,6 @@ let package = Package(
     products: [
         .library(name: "BBMetalImage", targets: [
             "BBMetalImage",
-            "BBMetalImageMetal",
             "BBMetalImageObjC"
         ]),
     ],
@@ -18,10 +17,6 @@ let package = Package(
             name: "BBMetalImage",
             path: "BBMetalImage/BBMetalImage",
             exclude: ["MultipleVideoSource.swift"]
-        ),
-        .target(
-            name: "BBMetalImageMetal",
-            path: "BBMetalImage/BBMetalImageMetal"
         ),
         .target(
             name: "BBMetalImageObjC",
