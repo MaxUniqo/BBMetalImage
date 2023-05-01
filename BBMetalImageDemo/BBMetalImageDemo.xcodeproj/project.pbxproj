@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,8 +23,6 @@
 		4A4CADC7225317C20058BEB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A4CADC5225317C20058BEB6 /* Main.storyboard */; };
 		4A4CADC9225317C30058BEB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A4CADC8225317C30058BEB6 /* Assets.xcassets */; };
 		4A4CADCC225317C30058BEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A4CADCA225317C30058BEB6 /* LaunchScreen.storyboard */; };
-		4A4CADD4225318D20058BEB6 /* BBMetalImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4CADD3225318D20058BEB6 /* BBMetalImage.framework */; };
-		4A4CADD5225318D20058BEB6 /* BBMetalImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4CADD3225318D20058BEB6 /* BBMetalImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A633D682281F33C00138B2A /* VideoFilterVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A633D672281F33C00138B2A /* VideoFilterVC2.swift */; };
 		4A633D6A2281F43300138B2A /* test_video_2.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4A633D692281F43300138B2A /* test_video_2.mov */; };
 		4A665CFD22721CAA00DFDF4C /* VideoFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A665CFC22721CAA00DFDF4C /* VideoFilterVC.swift */; };
@@ -42,6 +40,7 @@
 		4AFC464F2253CDDC009D37A1 /* StaticImageFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFC464E2253CDDC009D37A1 /* StaticImageFilterVC.swift */; };
 		4AFC46512253D1A6009D37A1 /* multicolour_flowers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4AFC46502253D1A6009D37A1 /* multicolour_flowers.jpg */; };
 		4AFD9C3A225EA1190000C839 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD9C39225EA1190000C839 /* FilterType.swift */; };
+		ECE8674B29FF5D5F0086C80E /* BBMetalImage in Frameworks */ = {isa = PBXBuildFile; productRef = ECE8674A29FF5D5F0086C80E /* BBMetalImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,7 +50,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4A4CADD5225318D20058BEB6 /* BBMetalImage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,7 +75,6 @@
 		4A4CADC8225317C30058BEB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A4CADCB225317C30058BEB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A4CADCD225317C30058BEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A4CADD3225318D20058BEB6 /* BBMetalImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BBMetalImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A633D672281F33C00138B2A /* VideoFilterVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFilterVC2.swift; sourceTree = "<group>"; };
 		4A633D692281F43300138B2A /* test_video_2.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = test_video_2.mov; sourceTree = "<group>"; };
 		4A665CFC22721CAA00DFDF4C /* VideoFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFilterVC.swift; sourceTree = "<group>"; };
@@ -95,6 +92,7 @@
 		4AFC464E2253CDDC009D37A1 /* StaticImageFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticImageFilterVC.swift; sourceTree = "<group>"; };
 		4AFC46502253D1A6009D37A1 /* multicolour_flowers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = multicolour_flowers.jpg; sourceTree = "<group>"; };
 		4AFD9C39225EA1190000C839 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
+		ECE8674D29FF63C30086C80E /* BBMetalImage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BBMetalImage; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A4CADD4225318D20058BEB6 /* BBMetalImage.framework in Frameworks */,
+				ECE8674B29FF5D5F0086C80E /* BBMetalImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,9 +110,10 @@
 		4A4CADB5225317C20058BEB6 = {
 			isa = PBXGroup;
 			children = (
-				4A4CADD3225318D20058BEB6 /* BBMetalImage.framework */,
+				ECE8674C29FF63C30086C80E /* Packages */,
 				4A4CADC0225317C20058BEB6 /* BBMetalImageDemo */,
 				4A4CADBF225317C20058BEB6 /* Products */,
+				ECE8674929FF5D5F0086C80E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,6 +166,21 @@
 			path = BBMetalImageDemo;
 			sourceTree = "<group>";
 		};
+		ECE8674929FF5D5F0086C80E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECE8674C29FF63C30086C80E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				ECE8674D29FF63C30086C80E /* BBMetalImage */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -184,6 +198,9 @@
 			dependencies = (
 			);
 			name = BBMetalImageDemo;
+			packageProductDependencies = (
+				ECE8674A29FF5D5F0086C80E /* BBMetalImage */,
+			);
 			productName = BBMetalImageDemo;
 			productReference = 4A4CADBE225317C20058BEB6 /* BBMetalImageDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -418,7 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9LJHCTN42A;
 				INFOPLIST_FILE = BBMetalImageDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -439,7 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9LJHCTN42A;
 				INFOPLIST_FILE = BBMetalImageDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -474,6 +491,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ECE8674A29FF5D5F0086C80E /* BBMetalImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BBMetalImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A4CADB6225317C20058BEB6 /* Project object */;
 }

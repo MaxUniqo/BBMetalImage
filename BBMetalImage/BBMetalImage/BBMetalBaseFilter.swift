@@ -142,10 +142,18 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         name = kernelFunctionName
         self.useMPSKernel = useMPSKernel
         
-        if !useMPSKernel,
-            let library = try? BBMetalDevice.sharedDevice.makeDefaultLibrary(bundle: useMainBundleKernel ? .main : Bundle(for: BBMetalBaseFilter.self)),
-            let kernelFunction = library.makeFunction(name: kernelFunctionName) {
-            computePipeline = try? BBMetalDevice.sharedDevice.makeComputePipelineState(function: kernelFunction)
+        if !useMPSKernel {
+            do {
+                let library = try BBMetalDevice.sharedDevice.makeDefaultLibrary(bundle: .module)
+                
+                if let kernelFunction = library.makeFunction(name: kernelFunctionName) {
+                    computePipeline = try BBMetalDevice.sharedDevice.makeComputePipelineState(function: kernelFunction)
+                } else {
+                    assertionFailure()
+                }
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
         }
         threadgroupSize = MTLSize(width: 16, height: 16, depth: 1)
         _runSynchronously = false

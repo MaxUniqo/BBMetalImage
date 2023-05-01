@@ -8,6 +8,7 @@
 
 import UIKit
 import BBMetalImage
+import AVFAudio
 
 class MultipleCameraFilterVC: UIViewController {
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import BBMetalImage
+import AVFoundation
 
 class VideoWatermarkVC: UIViewController {
     private var sourceURL: URL!

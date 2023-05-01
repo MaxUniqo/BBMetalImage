@@ -8,6 +8,7 @@
 
 import UIKit
 import BBMetalImage
+import BBMetalImageObjC
 
 class StaticImageFilterVC: UIViewController {
 

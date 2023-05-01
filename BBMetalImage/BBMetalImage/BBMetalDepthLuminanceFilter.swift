@@ -7,6 +7,7 @@
 //
 
 import Metal
+import BBMetalImageObjC
 
 /// Converts depth data to grayscale
 public class BBMetalDepthLuminanceFilter: BBMetalBaseFilter {

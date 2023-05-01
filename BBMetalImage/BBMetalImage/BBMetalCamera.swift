@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import BBMetalImageObjC
 
 /// Camera photo delegate defines handling taking photo result behaviors
 public protocol BBMetalCameraPhotoDelegate: AnyObject {

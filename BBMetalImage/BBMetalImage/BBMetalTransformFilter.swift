@@ -7,6 +7,7 @@
 //
 
 import Metal
+import BBMetalImageObjC
 
 /// Applies affine transform to an image
 public class BBMetalTransformFilter: BBMetalBaseFilter {

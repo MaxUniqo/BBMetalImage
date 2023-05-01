@@ -7,6 +7,7 @@
 //
 
 import BBMetalImage
+import BBMetalImageObjC
 
 class PiPFilter: BBMetalBaseFilter {
 

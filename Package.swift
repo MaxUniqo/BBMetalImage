@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -8,19 +8,24 @@ let package = Package(
     platforms: [.iOS(.v10)],
     products: [
         .library(name: "BBMetalImage", targets: [
-            "BBMetalImage",
-            "BBMetalImageObjC"
+            "BBMetalImage"
         ]),
     ],
     targets: [
         .target(
-            name: "BBMetalImage",
-            path: "BBMetalImage/BBMetalImage",
-            exclude: ["MultipleVideoSource.swift"]
+            name: "BBMetalImageObjC",
+            path: "BBMetalImage/BBMetalImageObjC",
+            publicHeadersPath: "Headers"
         ),
         .target(
-            name: "BBMetalImageObjC",
-            path: "BBMetalImage/BBMetalImageObjC"
+            name: "BBMetalImage",
+            dependencies: [
+                .target(name: "BBMetalImageObjC")
+            ],
+            path: "BBMetalImage/BBMetalImage",
+            resources: [
+                .process("BBMetalImage/BBMetalImage/Metal/")
+            ]
         )
     ]
 )
