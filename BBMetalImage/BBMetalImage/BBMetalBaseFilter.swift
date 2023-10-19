@@ -16,7 +16,7 @@ public struct BBMetalWeakImageSource {
     public var sampleTime: CMTime?
     public var cameraPosition: AVCaptureDevice.Position?
     public var isCameraPhoto: Bool = false
-    
+
     public init(source: BBMetalImageSource) { self.source = source }
 }
 
@@ -50,7 +50,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         return c
     }
     private var _consumers: [BBMetalImageConsumer]
-    
+
     /// Image sources
     public var sources: [BBMetalWeakImageSource] {
         lock.wait()
@@ -59,7 +59,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         return s
     }
     public private(set) var _sources: [BBMetalWeakImageSource]
-    
+
     /// Index of image source providing sample time.
     /// Default value is -1, means using the first not nil sample time of image source.
     /// To use a specific image source sample time, set the image source index to this property.
@@ -77,7 +77,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         }
     }
     private var _sourceSampleTimeIndex: Int
-    
+
     /// Index of image source providing camera position.
     /// Default value is -1, means using the first not nil camera position of image source.
     /// To use a specific image source camera position, set the image source index to this property.
@@ -95,10 +95,10 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         }
     }
     private var _sourceCameraPositionIndex: Int
-    
+
     /// Filter name
     public let name: String
-    
+
     /// Output texture containing last processing result
     public var outputTexture: MTLTexture? {
         lock.wait()
@@ -107,10 +107,10 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         return o
     }
     public private(set) var _outputTexture: MTLTexture?
-    
+
     private let threadgroupSize: MTLSize
     private var threadgroupCount: MTLSize?
-    
+
     /// Whether to synchronously wait for the execution of the Metal command buffer to complete. False by default.
     public var runSynchronously: Bool {
         get {
@@ -126,14 +126,14 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         }
     }
     private var _runSynchronously: Bool
-    
+
     /// Whether to use `MPSKernel` or not
     public let useMPSKernel: Bool
-    
+
     private var computePipeline: MTLComputePipelineState!
     private var completions: [_BBMetalFilterCompletionItem]
     private let lock: DispatchSemaphore
-    
+
     public init(kernelFunctionName: String, useMPSKernel: Bool = false, useMainBundleKernel: Bool = false) {
         _consumers = []
         _sources = []
@@ -141,26 +141,20 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         _sourceCameraPositionIndex = -1
         name = kernelFunctionName
         self.useMPSKernel = useMPSKernel
-        
-        if !useMPSKernel {
-            do {
-                let library = try BBMetalDevice.sharedDevice.makeDefaultLibrary(bundle: .module)
-                
-                if let kernelFunction = library.makeFunction(name: kernelFunctionName) {
-                    computePipeline = try BBMetalDevice.sharedDevice.makeComputePipelineState(function: kernelFunction)
-                } else {
-                    assertionFailure()
-                }
-            } catch {
-                assertionFailure(error.localizedDescription)
-            }
+
+        if !useMPSKernel,
+           let library = try? BBMetalDevice.sharedDevice.makeDefaultLibrary(bundle: .module),
+           let kernelFunction = library.makeFunction(name: kernelFunctionName)
+        {
+            computePipeline = try? BBMetalDevice.sharedDevice.makeComputePipelineState(function: kernelFunction)
         }
+
         threadgroupSize = MTLSize(width: 16, height: 16, depth: 1)
         _runSynchronously = false
         completions = []
         lock = DispatchSemaphore(value: 1)
     }
-    
+
     /// Registers a block of code that is called immediately after the device has completed the execution of the Metal command buffer
     ///
     /// - Parameter handler: block to register
@@ -173,7 +167,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         lock.signal()
         return key
     }
-    
+
     /// Removes a completion callback with a key
     ///
     /// - Parameter key: a key returned by `addCompletedHandler(_:)` method
@@ -182,14 +176,14 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         completions = completions.filter { $0.key != key }
         lock.signal()
     }
-    
+
     /// Removes all completion callbacks
     public func removeAllCompletedHandlers() {
         lock.wait()
         completions.removeAll()
         lock.signal()
     }
-    
+
     /// Gets a processed image synchronously
     ///
     /// - Parameter images: image to process
@@ -204,7 +198,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         for source in sources { source.transmitTexture() }
         return outputTexture?.bb_image
     }
-    
+
     /// Gets a processed texture synchronously
     ///
     /// - Parameter textures: texture to process
@@ -221,7 +215,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
     }
 
     // MARK: - BBMetalImageSource
-    
+
     @discardableResult
     public func add<T: BBMetalImageConsumer>(consumer: T) -> T {
         lock.wait()
@@ -230,14 +224,14 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         consumer.add(source: self)
         return consumer
     }
-    
+
     public func add(consumer: BBMetalImageConsumer, at index: Int) {
         lock.wait()
         _consumers.insert(consumer, at: index)
         lock.signal()
         consumer.add(source: self)
     }
-    
+
     public func remove(consumer: BBMetalImageConsumer) {
         lock.wait()
         if let index = _consumers.firstIndex(where: { $0 === consumer }) {
@@ -248,7 +242,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
             lock.signal()
         }
     }
-    
+
     public func removeAllConsumers() {
         lock.wait()
         let consumers = _consumers
@@ -260,13 +254,13 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
     }
 
     // MARK: - BBMetalImageConsumer
-    
+
     public func add(source: BBMetalImageSource) {
         lock.wait()
         _sources.append(BBMetalWeakImageSource(source: source))
         lock.signal()
     }
-    
+
     public func remove(source: BBMetalImageSource) {
         lock.wait()
         if let index = _sources.firstIndex(where: { $0.source === source }) {
@@ -274,10 +268,10 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         }
         lock.signal()
     }
-    
+
     public func newTextureAvailable(_ texture: BBMetalTexture, from source: BBMetalImageSource) {
         lock.wait()
-        
+
         // Check whether all input textures are ready
         var foundSource = false
         var empty = false
@@ -300,7 +294,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
             lock.signal()
             return
         }
-        
+
         // Check whether output texture has the same size as input texture
         let firstTexture = _sources.first!.texture!
         let outputSize = outputTextureSize(withInputTextureSize: BBMetalIntSize(width: firstTexture.width, height: firstTexture.height))
@@ -320,11 +314,11 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
             }
             threadgroupCount = nil
         }
-        
+
         // Render image to output texture
         guard let commandBuffer = BBMetalDevice.sharedCommandQueue.makeCommandBuffer() else { return }
         commandBuffer.label = name + "Command"
-        
+
         // Find not nil sample time for video frame, not nil camera position and true camera photo
         var sampleTime: CMTime?
         var cameraPosition: AVCaptureDevice.Position?
@@ -347,7 +341,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
             }
             if sampleTime != nil && cameraPosition != nil && isCameraPhoto { break }
         }
-        
+
         for completion in completions {
             commandBuffer.addCompletedHandler { [weak self] buffer in
                 guard let self = self else { return }
@@ -368,7 +362,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
                 }
             }
         }
-        
+
         if useMPSKernel {
             encodeMPSKernel(into: commandBuffer)
         } else {
@@ -378,22 +372,21 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
                                            height: (outputSize.height + threadgroupSize.height - 1) / threadgroupSize.height,
                                            depth: 1)
             }
-            
+
             guard let encoder = commandBuffer.makeComputeCommandEncoder() else { return }
-            
+
             encoder.label = name + "Encoder"
             encoder.setComputePipelineState(computePipeline)
             encoder.setTexture(_outputTexture, index: 0)
             for i in 0..<_sources.count { encoder.setTexture(_sources[i].texture, index: i + 1) }
             updateParameters(for: encoder, texture: texture)
-            updateParameters(forComputeCommandEncoder: encoder)
             encoder.dispatchThreadgroups(threadgroupCount!, threadsPerThreadgroup: threadgroupSize)
             encoder.endEncoding()
         }
-        
+
         commandBuffer.commit()
         if _runSynchronously { commandBuffer.waitUntilCompleted() }
-        
+
         // Clear old input texture
         for i in 0..<_sources.count {
             _sources[i].texture = nil
@@ -401,10 +394,10 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
             _sources[i].cameraPosition = nil
             _sources[i].isCameraPhoto = false
         }
-        
+
         let consumers = _consumers
         lock.signal()
-        
+
         // Transmit output texture to image consumers
         var output = texture
         output.sampleTime = sampleTime
@@ -413,7 +406,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
         output.metalTexture = _outputTexture!
         for consumer in consumers { consumer.newTextureAvailable(output, from: self) }
     }
-    
+
     /// Calcutes the ouput texture size.
     /// Returns the input texture size by default.
     /// Override the method if needed.
@@ -423,7 +416,7 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
     open func outputTextureSize(withInputTextureSize inputSize: BBMetalIntSize) -> BBMetalIntSize {
         return inputSize
     }
-    
+
     /// Encodes a kernel into a command buffer.
     /// Override the method if using MPSKernel.
     ///
@@ -431,15 +424,15 @@ open class BBMetalBaseFilter: BBMetalImageSource, BBMetalImageConsumer {
     open func encodeMPSKernel(into commandBuffer: MTLCommandBuffer) {
         fatalError("\(#function) must be overridden by subclass")
     }
-    
+
     /// Updates parameters for the compute command encoder.
     /// Override the method to set bytes or other paramters for the compute command encoder.
-    /// 
+    ///
     /// - Parameters:
     ///   - encoder: compute command encoder to use
     ///   - texture: texture containing parameters
     open func updateParameters(for encoder: MTLComputeCommandEncoder, texture: BBMetalTexture) {}
-    
+
     /// Updates parameters for the compute command encoder.
     /// Override the method to set bytes or other paramters for the compute command encoder.
     ///
